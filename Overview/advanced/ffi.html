@@ -4,8 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="generator" content="VuePress 2.0.0-beta.27">
-    <link rel="icon" href="/logo.png"><title>调用 c++原生 dll | electron-vue-template-doc</title><meta name="description" content="基于vue来构建一个electron应用程序">
-    <link rel="preload" href="/electron-vue-template-doc/assets/js/runtime~app.0069680f.js" as="script"><link rel="preload" href="/electron-vue-template-doc/assets/css/styles.fc1d698e.css" as="style"><link rel="preload" href="/electron-vue-template-doc/assets/js/567.982b9243.js" as="script"><link rel="preload" href="/electron-vue-template-doc/assets/js/app.a27f0d68.js" as="script">
+    <link rel="icon" href="/logo.png"><script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0f50a8d84b1f3393d7b5dd1c2a7ab417";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();</script><title>调用 c++原生 dll | electron-vue-template-doc</title><meta name="description" content="基于vue来构建一个electron应用程序">
+    <link rel="preload" href="/electron-vue-template-doc/assets/js/runtime~app.0069680f.js" as="script"><link rel="preload" href="/electron-vue-template-doc/assets/css/styles.fc1d698e.css" as="style"><link rel="preload" href="/electron-vue-template-doc/assets/js/567.1f124fdd.js" as="script"><link rel="preload" href="/electron-vue-template-doc/assets/js/app.70a2c024.js" as="script">
     <link rel="stylesheet" href="/electron-vue-template-doc/assets/css/styles.fc1d698e.css">
   </head>
   <body>
@@ -36,6 +43,6 @@ dll<span class="token punctuation">.</span><span class="token function">test</sp
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><div class="custom-container warning"><p class="custom-container-title">注意</p><p><code>__lib</code>是不可被修改，因为本框架已经做了预先处理，所有的<code>__lib</code>均指向你在<code>config/index.js</code>文件中设置的<code>DllFolder</code>值。<code>记住它接受一个字符串</code></p></div><div class="custom-container danger"><p class="custom-container-title">警告</p><p>当您觉得<code>_lib</code>作为 dll 的全局文件夹变量不太好时，您可以去<code>.electron-vue/webpack.renderer.config.js</code>和<code>src/index.ejs</code>中搜索<code>__lib</code>关键词，并将其修改成你所喜欢的即可。但是这是极度不建议的，因为您并不知道这么做所带来的后果，他可能包括但不限于：打包之后 dll 调用失败，dll 位置丢失，dev 无法启动等一系列连锁反应</p></div><ul><li>但开发途中是绝对不会这么一帆风顺的，就我在摸索的时候，遇到的问题总结如下： <ul><li>Q：控制台报错：<code>Uncaught Error: Dynamic Linking Error: Win32 error 126</code></li><li>A：该报错是由于 dll 文件位置不对引起的，文件路径是否和上面一样，否则您需要使用绝对路径。</li><li>Q：控制台报错：<code>Uncaught Error: Dynamic Linking Error: Win32 error 193</code></li><li>A：dll 位数不对导致的，32 位 dll 只能给 32 位程序使用，64 位只能给 64 位程序使用，二者不可混合使用。</li><li>Q：控制台报错：<code>Uncaught Error: Dynamic Linking Error: Win32 error 127</code></li><li>A：该报错是由于在 js 中声明了 c++中没有的方法导致的，请注意 c++中暴漏的函数名；或者是当前 dll 引用了其他资源文件它没有加载成功。</li><li>Q：控制台报错：<code>Uncaught Error: Dynamic Linking Error: Win32 error 1114</code></li><li>A：该报错是在打包时，dll 释放位置错误，导致程序去 c 盘查找后无果得到的 dll 丢失错误。（后面会谈这个打包之后的 dll 问题）</li><li>Q：控制台报错：<code>Uncaught (in promise) Error: \\?\C:\Users\%userName%\Desktop\electron-vue-template\node_modules\ref-napi\build\Release\binding.node is not a valid Win32 application. \\?\C:\Users\%userName%\Desktop\electron-vue-template\node_modules\ref-napi\build\Release\binding.node</code></li><li>A：这种错误通常出现在你打包过一次之后发生，此时你只需要去你的 node_modules/ffi-napi 文件夹内重新执行一次 npm install 或者 yarn install 即可解决。</li></ul></li></ul><!--]--></div><footer class="page-meta"><!----><div class="meta-item last-updated"><span class="meta-item-label">更新时间: </span><span class="meta-item-info">12/1/2021, 3:01:59 PM</span></div><!----></footer><nav class="page-nav"><p class="inner"><span class="prev"> ← <a href="/electron-vue-template-doc/Overview/advanced/RouteLazyLoading.html" class="nav-link" aria-label="路由懒加载"><!--[--><!--]--> 路由懒加载 <!--[--><!--]--></a></span><span class="next"><a href="/electron-vue-template-doc/Overview/advanced/webpack.html" class="nav-link" aria-label="webpack指南"><!--[--><!--]--> webpack指南 <!--[--><!--]--></a> → </span></p></nav><!--[--><!--]--></main><!--]--></div><!----><!--]--></div>
-    <script src="/electron-vue-template-doc/assets/js/runtime~app.0069680f.js" defer></script><script src="/electron-vue-template-doc/assets/js/567.982b9243.js" defer></script><script src="/electron-vue-template-doc/assets/js/app.a27f0d68.js" defer></script>
+    <script src="/electron-vue-template-doc/assets/js/runtime~app.0069680f.js" defer></script><script src="/electron-vue-template-doc/assets/js/567.1f124fdd.js" defer></script><script src="/electron-vue-template-doc/assets/js/app.70a2c024.js" defer></script>
   </body>
 </html>
